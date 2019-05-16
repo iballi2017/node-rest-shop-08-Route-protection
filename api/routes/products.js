@@ -19,8 +19,8 @@ const checkAuth = require('../middleware/check-auth'); //this middle ware is use
 
 
 //.....................................................................
-//alter a new constant 'uplaod' to execute multer
-// const uplaod = multer({dest: 'uploads/'});  //'uploads' is a folder where multer will try to store incoming files
+//alter a new constant 'upload' to execute multer
+// const upload = multer({dest: 'uploads/'});  //'uploads' is a folder where multer will try to store incoming files
 //.....................................................................
 //A better to way to execute multer using 'multer.diskStorage()'
 const storage = multer.diskStorage({
@@ -43,8 +43,8 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-// const uplaod = multer({storage: storage});    //this will work, but no filtering
-const uplaod = multer({storage: storage, limits: {   //this accepts filtering i.e 'limit to file size it accepts', additional filtering can be placed above this block like thatwe have above this block
+// const upload = multer({storage: storage});    //this will work, but no filtering
+const upload = multer({storage: storage, limits: {   //this accepts filtering i.e 'limit to file size it accepts', additional filtering can be placed above this block like thatwe have above this block
     fileSize: 1024 * 1024 * 5       //.....means 5mb file limit
 }, fileFilter: fileFilter});        //..............add the "fileFilter" property constant from above to the 
 
@@ -103,7 +103,7 @@ router.get('/', (req, res, next) => {
 });
 
 // router.post('/', (req, res, next) => {
-router.post('/', checkAuth, uplaod.single('productImage'), (req, res, next) => {     //adding the multer middleware "uplaod.single()"
+router.post('/', checkAuth, upload.single('productImage'), (req, res, next) => {     //adding the multer middleware "upload.single()"
     console.log(req.file);
 
     //.......................................
